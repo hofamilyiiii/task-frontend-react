@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect fill="#7C3AED" width="400" height="300"/>
+  <text x="200" y="140" text-anchor="middle" fill="white" font-family="system-ui, sans-serif" font-size="24" font-weight="bold">Family Suite</text>
+  <text x="200" y="170" text-anchor="middle" fill="#DDD6FE" font-family="system-ui, sans-serif" font-size="16">Suite • 4 Guests</text>
+</svg>
