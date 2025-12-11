@@ -1,31 +1,12 @@
-export interface Room {
-  id: number;
-  name: string;
-  category: 'Single' | 'Double' | 'Suite';
-  pricePerNight: number;
-  capacity: number;
-  imageUrl: string;
-}
+import { z } from 'zod';
+import { 
+  RoomSchema, 
+  BookingSchema, 
+  AvailabilityResponseSchema, 
+  CreateBookingRequestSchema 
+} from '../schemas';
 
-export interface Booking {
-  id: number;
-  roomId: number;
-  customerName: string;
-  customerEmail: string;
-  checkIn: string;  // ISO date string
-  checkOut: string; // ISO date string
-  createdAt: string;
-}
-
-export interface AvailabilityResponse {
-  available: boolean;
-  conflicts?: { checkIn: string; checkOut: string }[];
-}
-
-export interface CreateBookingRequest {
-  roomId: number;
-  customerName: string;
-  customerEmail: string;
-  checkIn: string;
-  checkOut: string;
-}
+export type Room = z.infer<typeof RoomSchema>;
+export type Booking = z.infer<typeof BookingSchema>;
+export type AvailabilityResponse = z.infer<typeof AvailabilityResponseSchema>;
+export type CreateBookingRequest = z.infer<typeof CreateBookingRequestSchema>;

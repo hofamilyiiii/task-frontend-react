@@ -1,4 +1,6 @@
 import { Room, Booking, AvailabilityResponse, CreateBookingRequest } from '../types';
+import { RoomSchema, BookingSchema, AvailabilityResponseSchema } from '../schemas';
+import { z } from 'zod';
 
 export const BASE = 'http://localhost:3000/';
 export const API_BASE = 'http://localhost:3000/api';
@@ -6,13 +8,15 @@ export const API_BASE = 'http://localhost:3000/api';
 export async function fetchRooms(): Promise<Room[]> {
   const res = await fetch(`${API_BASE}/rooms`);
   if (!res.ok) throw new Error('Failed to fetch rooms');
-  return res.json();
+  const data = await res.json();
+  return z.array(RoomSchema).parse(data);
 }
 
 export async function fetchRoom(id: number): Promise<Room> {
   const res = await fetch(`${API_BASE}/rooms/${id}`);
   if (!res.ok) throw new Error('Room not found');
-  return res.json();
+  const data = await res.json();
+  return RoomSchema.parse(data);
 }
 
 export async function checkAvailability(
@@ -23,7 +27,8 @@ export async function checkAvailability(
   const params = new URLSearchParams({ checkIn, checkOut });
   const res = await fetch(`${API_BASE}/rooms/${roomId}/availability?${params}`);
   if (!res.ok) throw new Error('Failed to check availability');
-  return res.json();
+  const data = await res.json();
+  return AvailabilityResponseSchema.parse(data);
 }
 
 export async function createBooking(
@@ -41,5 +46,6 @@ export async function createBooking(
     const error = await res.json();
     throw new Error(error.message || 'Failed to create booking');
   }
-  return res.json();
+  const data = await res.json();
+  return BookingSchema.parse(data);
 }
